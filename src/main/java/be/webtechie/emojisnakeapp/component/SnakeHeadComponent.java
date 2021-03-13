@@ -1,4 +1,4 @@
-package be.webtechie.emojisnake.component;
+package be.webtechie.emojisnakeapp.component;
 
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.component.Component;

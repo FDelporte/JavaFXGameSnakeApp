@@ -9,18 +9,18 @@
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>Emoji Snake Game</name>
+    <name>Emoji Snake Game App</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>11</maven.compiler.release>
-        <javafx.version>15.0.1</javafx.version>
+        <javafx.version>11.0.1</javafx.version>
         <javafx.plugin.version>0.0.5</javafx.plugin.version>
         <fxgl.version>11.13</fxgl.version>
         <client.plugin.version>0.1.36</client.plugin.version>
         <charm.version>6.0.6</charm.version>
         <attach.version>4.0.10</attach.version>
-        <main.class>be.webtechie.emojisnake.Main</main.class>
+        <main.class>be.webtechie.emojisnakeapp.Main</main.class>
     </properties>
 
     <dependencies>

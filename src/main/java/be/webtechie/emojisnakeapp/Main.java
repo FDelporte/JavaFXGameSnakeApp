@@ -1,4 +1,4 @@
-package be.webtechie.emojisnake;
+package be.webtechie.emojisnakeapp;
 
 import com.gluonhq.charm.glisten.application.MobileApplication;
 import com.gluonhq.charm.glisten.control.AppBar;

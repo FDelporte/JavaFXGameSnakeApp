@@ -1,4 +1,4 @@
-package be.webtechie.emojisnake.util;
+package be.webtechie.emojisnakeapp.util;
 
 import java.util.Random;
 

@@ -1,6 +1,6 @@
-package be.webtechie.emojisnake;
+package be.webtechie.emojisnakeapp;
 
-import be.webtechie.emojisnake.component.SnakeHeadComponent;
+import be.webtechie.emojisnakeapp.component.SnakeHeadComponent;
 import com.almasb.fxgl.core.math.FXGLMath;
 import com.almasb.fxgl.dsl.components.AutoRotationComponent;
 import com.almasb.fxgl.entity.Entity;

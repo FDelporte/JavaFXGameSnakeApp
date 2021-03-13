@@ -5,6 +5,7 @@ import com.gluonhq.charm.glisten.control.AppBar;
 import com.gluonhq.charm.glisten.control.FloatingActionButton;
 import com.gluonhq.charm.glisten.mvc.View;
 import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
+import javafx.scene.control.Label;
 
 public class Main extends MobileApplication {
 
@@ -13,8 +14,8 @@ public class Main extends MobileApplication {
         addViewFactory(HOME_VIEW, () -> {
             FloatingActionButton fab = new FloatingActionButton(MaterialDesignIcon.SEARCH.text,
                     e -> System.out.println("Search"));
-
-            View view = new View(new SnakeGameApp()) {
+            //new SnakeGameApp()
+            View view = new View(new Label("Test")) {
                 @Override
                 protected void updateAppBar(AppBar appBar) {
                     appBar.setTitleText("Emoji Snake");

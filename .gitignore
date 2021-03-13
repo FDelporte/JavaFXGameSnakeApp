@@ -2,3 +2,4 @@
 logs/
 system/
 target/
+/src/main/resources/gluonmobile.license

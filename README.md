@@ -10,6 +10,13 @@ A list of the basic requirements can be found online in the [Gluon Client docume
 
 ## Quick instructions
 
+### GraalVM on Mac
+
+* Use sdkman - https://sdkman.io/
+* Install GraalVM with `sdk install java 21.0.0.r11-grl`
+* Set environment variable with `export GRAALVM_HOME=${SDKMAN_CANDIDATES_DIR}/java/21.0.0.r11-grl`
+* Check variable with `echo $GRAALVM_HOME`
+
 ### Run the sample
 
     mvn javafx:run

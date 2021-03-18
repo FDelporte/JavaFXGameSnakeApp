@@ -1,4 +1,4 @@
-package be.webtechie.emojisnakeapp;
+package be.webtechie.emojisnakeapp.game;
 
 import be.webtechie.emojisnakeapp.component.SnakeHeadComponent;
 import com.almasb.fxgl.core.math.FXGLMath;

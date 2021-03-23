@@ -32,7 +32,7 @@ jobs:
     - name: Show created files
       run: ls -l target/client/x86_64-darwin/
     - name: Copy native client to staging
-      run: cp -r target/client/x86_64-darwin/emoji* staging
+      run: cp -r target/client/x86_64-darwin/Emoji* staging
     - name: Upload
       uses: actions/upload-artifact@v2
       with:

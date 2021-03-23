@@ -1,5 +1,10 @@
 # Emoji Snake Game
 
+![Linux JAR and Native](https://github.com/FDelporte/JavaFXGameSnakeApp/workflows/Linux%20JAR%20and%20Native/badge.svg)
+![MacOS](https://github.com/FDelporte/JavaFXGameSnakeApp/workflows/MacOS/badge.svg)
+![Windows](https://github.com/FDelporte/JavaFXGameSnakeApp/workflows/Windows/badge.svg)
+![Linux Android](https://github.com/FDelporte/JavaFXGameSnakeApp/workflows/Linux%20Android/badge.svg)
+
 This Gluon Client sample was generated from https://start.gluon.io
 
 Based on https://github.com/FDelporte/JavaFXGameSnake

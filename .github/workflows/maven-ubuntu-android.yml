@@ -1,5 +1,6 @@
 # https://docs.gluonhq.com/#platforms_android_github_actions
 # https://developer.android.com/studio/publish/app-signing
+# encode keystore file: openssl base64 -in <infile> -out <outfile>
 
 name: Linux Android
 
@@ -46,7 +47,7 @@ jobs:
     - name: Show created files
       run: ls -l target/client/aarch64-android/gvm/
     - name: Copy native clients to staging
-      run: cp -r target/client/aarch64-android/gvm/EmojiSnake.apk staging
+      run: cp -r target/client/aarch64-android/gvm/EmojiSnakeGameApp.apk staging
     - name: Upload
       uses: actions/upload-artifact@v2
       with:

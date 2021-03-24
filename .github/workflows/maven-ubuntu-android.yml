@@ -46,6 +46,8 @@ jobs:
         GLUON_ANDROID_KEYALIAS_PASSWORD: ${{ secrets.ANDROID_KEYALIAS_PASSWORD }}
     - name: Show created files
       run: ls -l target/client/aarch64-android/gvm/
+    - name: Copy all generated to staging
+      run: cp -r target/* staging
     - name: Copy native clients to staging
       run: cp -r target/client/aarch64-android/gvm/EmojiSnakeGameApp.apk staging
     - name: Upload

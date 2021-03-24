@@ -1,4 +1,4 @@
-# Emoji Snake Game
+# Emoji Snake Game App
 
 ![Linux JAR and Native](https://github.com/FDelporte/JavaFXGameSnakeApp/workflows/Linux%20JAR%20and%20Native/badge.svg)
 ![MacOS](https://github.com/FDelporte/JavaFXGameSnakeApp/workflows/MacOS/badge.svg)

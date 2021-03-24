@@ -57,8 +57,8 @@ jobs:
         path: staging
     - name: Upoad to Google Play
       uses: r0adkll/upload-google-play@v1
-      with:
+      with:com.gluonhq.helloandroid
         serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
-        packageName: be.webtechie.emojisnakeapp.main
+        packageName: be.webtechie.emojisnakegameapp
         releaseFiles: target/client/aarch64-android/gvm/EmojiSnakeGameApp.apk
         track: beta

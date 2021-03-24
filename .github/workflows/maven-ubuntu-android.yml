@@ -1,9 +1,5 @@
-# Setup to be able to push to Google Play
-#   https://play.google.com/console
-#   Create an app
-#   "API Access"
-#   Create new project
-#   Create new Service account ()
+# https://docs.gluonhq.com/#platforms_android_github_actions
+# https://developer.android.com/studio/publish/app-signing
 
 name: Linux Android
 

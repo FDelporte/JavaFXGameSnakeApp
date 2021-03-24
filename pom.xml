@@ -130,6 +130,16 @@
                         <list>storage</list>
                         <list>vibration</list>
                     </attachList>
+                    <releaseConfiguration>
+                        <!-- for iOS -->
+                        <bundleVersion>${env.GITHUB_RUN_NUMBER}</bundleVersion>
+                        <!-- for Android -->
+                        <versionCode>${env.GITHUB_RUN_NUMBER}</versionCode>
+                        <providedKeyStorePath>${env.ANDROID_KEYSTOREPATH}</providedKeyStorePath>
+                        <providedKeyStorePassword>${env.ANDROID_KEYSTORE_PASSWORD}</providedKeyStorePassword>
+                        <providedKeyAlias>${env.ANDROID_KEYALIAS}</providedKeyAlias>
+                        <providedKeyAliasPassword>${env.ANDROID_KEYALIAS_PASSWORD}</providedKeyAliasPassword>
+                    </releaseConfiguration>
                 </configuration>
             </plugin>
         </plugins>
@@ -172,12 +182,6 @@
             <id>android</id>
             <properties>
                 <client.target>android</client.target>
-            </properties>
-        </profile>
-        <profile>
-            <id>ios</id>
-            <properties>
-                <client.target>ios</client.target>
             </properties>
         </profile>
     </profiles>

@@ -118,6 +118,7 @@
                 <artifactId>client-maven-plugin</artifactId>
                 <version>${client.plugin.version}</version>
                 <configuration>
+                    <verbose>true</verbose>
                     <target>${client.target}</target>
                     <mainClass>${main.class}</mainClass>
                     <attachList>

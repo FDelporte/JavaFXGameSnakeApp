@@ -22,7 +22,7 @@ public class Main extends MobileApplication {
             Dimension2D resolution = service.getScreenResolution();
             screenWidth = (int) resolution.getWidth();
             screenHeight = (int) resolution.getHeight();
-            System.out.printf("Screen resolution: %.0fx%.0f", screenWidth, screenHeight);
+            System.out.print("Screen resolution: " + screenWidth + "*" + screenHeight);
         });
 
         // https://docs.gluonhq.com/attach/javadoc/latest/com.gluonhq.attach.magnetometer/com/gluonhq/attach/magnetometer/MagnetometerService.html

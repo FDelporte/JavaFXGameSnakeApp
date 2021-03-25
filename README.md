@@ -14,7 +14,7 @@ Based on https://github.com/FDelporte/JavaFXGameSnake
 A list of the basic requirements can be found online in the [Gluon Client documentation](https://docs.gluonhq.com/client/#_requirements).
 
 ## Quick instructions
-
+ 
 ### GraalVM on Mac
 
 * Use sdkman - https://sdkman.io/

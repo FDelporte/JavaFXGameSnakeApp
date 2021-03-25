@@ -1,4 +1,5 @@
 # https://docs.gluonhq.com/#platforms_android_github_actions
+# https://developers.google.com/android/management/service-account
 # https://developer.android.com/studio/publish/app-signing
 # encode keystore file: openssl base64 -in <infile> -out <outfile>
 

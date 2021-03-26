@@ -19,7 +19,7 @@ jobs:
     - name: Setup GraalVM environment
       uses: DeLaGuardo/setup-graalvm@master
       with:
-        graalvm: '21.0.0.2'
+        graalvm: '20.2'
         java: 'java11'
     - name: APT update
       run: sudo apt update

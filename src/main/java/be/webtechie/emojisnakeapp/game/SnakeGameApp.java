@@ -88,8 +88,8 @@ public class SnakeGameApp extends GameApplication {
         dpad.setTranslateX(25);
         dpad.setTranslateY(getAppHeight() - 280);
         // Only for desktop testing
-        dpad.setScaleX(0.5);
-        dpad.setScaleY(0.5);
+        //dpad.setScaleX(0.5);
+        //dpad.setScaleY(0.5);
 
         getGameScene().addUINodes(scoreLabel, scoreValue, livesLabel, livesValue, dpad);
     }

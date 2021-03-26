@@ -17,9 +17,8 @@
         <javafx.version>15</javafx.version>
         <javafx.plugin.version>0.0.5</javafx.plugin.version>
         <fxgl.version>dev-SNAPSHOT</fxgl.version>
-        <client.plugin.version>0.1.38</client.plugin.version>
-        <charm.version>6.0.6</charm.version>
-        <attach.version>4.0.10</attach.version>
+        <client.plugin.version>0.1.35</client.plugin.version>
+        <attach.version>4.0.9</attach.version>
         <main.class>be.webtechie.emojisnakeapp.game.SnakeGameApp</main.class>
     </properties>
 
@@ -36,21 +35,6 @@
     </repositories>
 
     <dependencies>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-base</artifactId>
-            <version>${javafx.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-graphics</artifactId>
-            <version>${javafx.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
-            <version>${javafx.version}</version>
-        </dependency>
 
         <dependency>
             <groupId>com.github.almasb</groupId>
@@ -58,11 +42,6 @@
             <version>${fxgl.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.gluonhq</groupId>
-            <artifactId>charm-glisten</artifactId>
-            <version>${charm.version}</version>
-        </dependency>
         <dependency>
             <groupId>com.gluonhq.attach</groupId>
             <artifactId>device</artifactId>
@@ -185,6 +164,7 @@
                         <list>com.almasb.fxgl.dsl.components.OffscreenCleanComponent</list>
                         <list>com.almasb.fxgl.dsl.components.OffscreenPauseComponent</list>
                         <list>com.almasb.fxgl.dsl.components.ProjectileComponent</list>
+                        <list>com.almasb.fxgl.dsl.components.AutoRotationComponent</list>
 
                         <!--     Custom components                  -->
                         <list>be.webtechie.emojisnakeapp.Main</list>

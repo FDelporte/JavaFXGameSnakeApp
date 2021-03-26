@@ -4,10 +4,13 @@ import be.webtechie.emojisnakeapp.component.SnakeHeadComponent;
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.core.math.FXGLMath;
+import com.almasb.fxgl.core.math.Vec2;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.EntityFactory;
 import com.almasb.fxgl.input.UserAction;
 import com.almasb.fxgl.input.virtual.VirtualButton;
+import com.almasb.fxgl.ui.Position;
+import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -44,7 +47,7 @@ public class SnakeGameApp extends GameApplication {
     protected void initSettings(GameSettings settings) {
         settings.setWidth(CELL_SIZE * GRID_WIDTH);
         settings.setHeight(CELL_SIZE * GRID_HEIGHT);
-        settings.setTitle("Viks Snake Game");
+        settings.setTitle("Emoji Snake Game");
         settings.setTicksPerSecond(10);
     }
 
@@ -84,6 +87,9 @@ public class SnakeGameApp extends GameApplication {
         var dpad = getInput().createVirtualDpadView();
         dpad.setTranslateX(25);
         dpad.setTranslateY(getAppHeight() - 280);
+        // Only for desktop testing
+        dpad.setScaleX(0.5);
+        dpad.setScaleY(0.5);
 
         getGameScene().addUINodes(scoreLabel, scoreValue, livesLabel, livesValue, dpad);
     }
@@ -93,14 +99,15 @@ public class SnakeGameApp extends GameApplication {
      */
     @Override
     protected void initInput() {
-        onKeyDown(KeyCode.LEFT, () -> this.player.getComponentOptional(SnakeHeadComponent.class).ifPresent(
-                SnakeHeadComponent::left));
-        onKeyDown(KeyCode.RIGHT, () -> this.player.getComponentOptional(SnakeHeadComponent.class).ifPresent(
-                SnakeHeadComponent::right));
-        onKeyDown(KeyCode.UP, () -> this.player.getComponentOptional(SnakeHeadComponent.class).ifPresent(
-                SnakeHeadComponent::up));
+        getInput().addAction(new UserAction("UP") {
+            @Override
+            protected void onActionBegin() {
+                player.getComponentOptional(SnakeHeadComponent.class).ifPresent(
+                        SnakeHeadComponent::up);
+            }
+        }, KeyCode.UP, VirtualButton.UP);
 
-        // TODO: do the remaining 3 buttons
+
         getInput().addAction(new UserAction("Down") {
             @Override
             protected void onActionBegin() {
@@ -108,6 +115,22 @@ public class SnakeGameApp extends GameApplication {
                         SnakeHeadComponent::down);
             }
         }, KeyCode.DOWN, VirtualButton.DOWN);
+
+        getInput().addAction(new UserAction("Left") {
+            @Override
+            protected void onActionBegin() {
+                player.getComponentOptional(SnakeHeadComponent.class).ifPresent(
+                        SnakeHeadComponent::left);
+            }
+        }, KeyCode.LEFT, VirtualButton.LEFT);
+
+        getInput().addAction(new UserAction("Right") {
+            @Override
+            protected void onActionBegin() {
+                player.getComponentOptional(SnakeHeadComponent.class).ifPresent(
+                        SnakeHeadComponent::right);
+            }
+        }, KeyCode.RIGHT, VirtualButton.RIGHT);
 
         onKeyDown(KeyCode.F, () -> {
             player.getComponent(SnakeHeadComponent.class).grow();
@@ -129,21 +152,46 @@ public class SnakeGameApp extends GameApplication {
         this.player = spawn("snakeHead", 0, 0);
 
         spawnFood();
+        spawnTrap();
     }
 
     @Override
     protected void onUpdate(double tpf) {
         var food = getGameWorld().getSingleton(FOOD);
+        var trap = getGameWorld().getSingleton(TRAP);
 
         if (player.getX() == food.getX() && player.getY() == food.getY()) {
             food.removeFromWorld();
+            trap.removeFromWorld();
             player.getComponent(SnakeHeadComponent.class).grow();
-
             spawnFood();
+            spawnTrap();
+        }
+
+        if (player.getX() == trap.getX() && player.getY() == trap.getY()) {
+            food.removeFromWorld();
+            trap.removeFromWorld();
+            player.getComponent(SnakeHeadComponent.class).die();
+            spawnFood();
+            spawnTrap();
         }
     }
 
     public void spawnFood() {
+        var pos = getFreePosition();
+        spawn("food", pos.getX(), pos.getY());
+    }
+
+    public void spawnTrap() {
+        var pos = getFreePosition();
+        spawn("trap", pos.getX(), pos.getY());
+    }
+
+    /**
+     * Find an X/Y position which is not use by any of the snake elements or food or trap
+     * @return
+     */
+    private Point2D getFreePosition() {
         var posX = 0;
         var posY = 0;
 
@@ -156,12 +204,12 @@ public class SnakeGameApp extends GameApplication {
             int pX = posX;
             int pY = posY;
 
-            isBad = byType(SNAKE_HEAD, SNAKE_BODY)
+            isBad = byType(SNAKE_HEAD, SNAKE_BODY, FOOD, TRAP)
                     .stream()
                     .anyMatch(e -> (int) e.getX() == pX && (int) e.getY() == pY);
         }
 
-        spawn("food", posX, posY);
+        return new Point2D(posX, posY);
     }
 
     public static void main(String[] args) {

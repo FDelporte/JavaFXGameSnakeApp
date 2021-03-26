@@ -22,7 +22,7 @@ public class SnakeGameFactory implements EntityFactory {
      * Types of objects we are going to use in our game.
      */
     public enum EntityType {
-        SNAKE_HEAD, SNAKE_BODY, FOOD
+        SNAKE_HEAD, SNAKE_BODY, FOOD, TRAP
     }
 
     private List<String> textureNames = List.of(
@@ -51,6 +51,13 @@ public class SnakeGameFactory implements EntityFactory {
             "ice-cream.png"
     );
 
+    private List<String> trapTextureNames = List.of(
+            "bear-trap.png",
+            "bomb.png",
+            "dynamite.png",
+            "spider.png"
+    );
+
     @Spawns("snakeHead")
     public Entity newSnakeHead(SpawnData data) {
         return entityBuilder(data)
@@ -77,6 +84,15 @@ public class SnakeGameFactory implements EntityFactory {
         return entityBuilder(data)
                 .type(EntityType.FOOD)
                 .viewWithBBox(texture("food/" + FXGLMath.random(foodTextureNames).get(), 32, 32))
+                .collidable()
+                .build();
+    }
+
+    @Spawns("trap")
+    public Entity newTrap(SpawnData data) {
+        return entityBuilder(data)
+                .type(EntityType.TRAP)
+                .viewWithBBox(texture("traps/" + FXGLMath.random(trapTextureNames).get(), 32, 32))
                 .collidable()
                 .build();
     }

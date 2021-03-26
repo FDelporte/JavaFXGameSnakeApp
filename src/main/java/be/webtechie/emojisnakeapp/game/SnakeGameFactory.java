@@ -22,10 +22,9 @@ public class SnakeGameFactory implements EntityFactory {
      * Types of objects we are going to use in our game.
      */
     public enum EntityType {
-        SNAKE_HEAD, SNAKE_BODY
+        SNAKE_HEAD, SNAKE_BODY, FOOD
     }
 
-    // TODO: safe actions plugin
     private List<String> textureNames = List.of(
             "angry.png",
             "cool.png",
@@ -40,6 +39,16 @@ public class SnakeGameFactory implements EntityFactory {
             "pressure.png",
             "smile.png",
             "wink.png"
+    );
+    
+    private List<String> foodTextureNames = List.of(
+            "apple.png",
+            "bananas.png",
+            "broccoli.png",
+            "burger.png",
+            "carrot.png",
+            "french-fries.png",
+            "ice-cream.png"
     );
 
     @Spawns("snakeHead")
@@ -60,6 +69,15 @@ public class SnakeGameFactory implements EntityFactory {
                 .viewWithBBox(texture(FXGLMath.random(textureNames).get(), 32, 32))
                 .collidable()
                 .with(new AutoRotationComponent())
+                .build();
+    }
+
+    @Spawns("food")
+    public Entity newFood(SpawnData data) {
+        return entityBuilder(data)
+                .type(EntityType.FOOD)
+                .viewWithBBox(texture("food/" + FXGLMath.random(foodTextureNames).get(), 32, 32))
+                .collidable()
                 .build();
     }
 }

@@ -16,12 +16,24 @@
         <maven.compiler.release>11</maven.compiler.release>
         <javafx.version>15</javafx.version>
         <javafx.plugin.version>0.0.5</javafx.plugin.version>
-        <fxgl.version>11.14</fxgl.version>
+        <fxgl.version>dev-SNAPSHOT</fxgl.version>
         <client.plugin.version>0.1.38</client.plugin.version>
         <charm.version>6.0.6</charm.version>
         <attach.version>4.0.10</attach.version>
-        <main.class>be.webtechie.emojisnakeapp.Main</main.class>
+        <main.class>be.webtechie.emojisnakeapp.game.SnakeGameApp</main.class>
     </properties>
+
+    <repositories>
+        <repository>
+            <id>oss.sonatype.org-snapshot</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </repository>
+
+        <repository>
+            <id>gluon-releases</id>
+            <url>https://nexus.gluonhq.com/nexus/content/repositories/releases/</url>
+        </repository>
+    </repositories>
 
     <dependencies>
         <dependency>
@@ -195,16 +207,16 @@
                         <list>storage</list>
                         <list>vibration</list>
                     </attachList>
-                    <releaseConfiguration>
-                        <!-- for iOS -->
-                        <bundleVersion>${env.GITHUB_RUN_NUMBER}</bundleVersion>
-                        <!-- for Android -->
-                        <versionCode>${env.GITHUB_RUN_NUMBER}</versionCode>
-                        <providedKeyStorePath>${env.ANDROID_KEYSTOREPATH}</providedKeyStorePath>
-                        <providedKeyStorePassword>${env.ANDROID_KEYSTORE_PASSWORD}</providedKeyStorePassword>
-                        <providedKeyAlias>${env.ANDROID_KEYALIAS}</providedKeyAlias>
-                        <providedKeyAliasPassword>${env.ANDROID_KEYALIAS_PASSWORD}</providedKeyAliasPassword>
-                    </releaseConfiguration>
+<!--                    <releaseConfiguration>-->
+<!--                        &lt;!&ndash; for iOS &ndash;&gt;-->
+<!--                        <bundleVersion>${env.GITHUB_RUN_NUMBER}</bundleVersion>-->
+<!--                        &lt;!&ndash; for Android &ndash;&gt;-->
+<!--                        <versionCode>${env.GITHUB_RUN_NUMBER}</versionCode>-->
+<!--                        <providedKeyStorePath>${env.ANDROID_KEYSTOREPATH}</providedKeyStorePath>-->
+<!--                        <providedKeyStorePassword>${env.ANDROID_KEYSTORE_PASSWORD}</providedKeyStorePassword>-->
+<!--                        <providedKeyAlias>${env.ANDROID_KEYALIAS}</providedKeyAlias>-->
+<!--                        <providedKeyAliasPassword>${env.ANDROID_KEYALIAS_PASSWORD}</providedKeyAliasPassword>-->
+<!--                    </releaseConfiguration>-->
                 </configuration>
             </plugin>
         </plugins>
@@ -251,10 +263,4 @@
         </profile>
     </profiles>
 
-    <repositories>
-        <repository>
-            <id>gluon-releases</id>
-            <url>https://nexus.gluonhq.com/nexus/content/repositories/releases/</url>
-        </repository>
-    </repositories>
 </project>

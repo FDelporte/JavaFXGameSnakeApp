@@ -3,19 +3,27 @@ package be.webtechie.emojisnakeapp.game;
 import be.webtechie.emojisnakeapp.component.SnakeHeadComponent;
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
+import com.almasb.fxgl.core.math.FXGLMath;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.EntityFactory;
+import com.almasb.fxgl.input.UserAction;
+import com.almasb.fxgl.input.virtual.VirtualButton;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 import java.util.Map;
 
+import static be.webtechie.emojisnakeapp.game.SnakeGameFactory.EntityType.*;
 import static com.almasb.fxgl.dsl.FXGL.*;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameScene;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameState;
 
 public class SnakeGameApp extends GameApplication {
+
+    private static final int CELL_SIZE = 32;
+    private static final int GRID_WIDTH = 30;
+    private static final int GRID_HEIGHT = 17;
 
     /**
      * Reference to the factory which will defines how all the types must be created.
@@ -34,8 +42,8 @@ public class SnakeGameApp extends GameApplication {
      */
     @Override
     protected void initSettings(GameSettings settings) {
-        settings.setWidth(64 * 15);
-        settings.setHeight(64 * 15);
+        settings.setWidth(CELL_SIZE * GRID_WIDTH);
+        settings.setHeight(CELL_SIZE * GRID_HEIGHT);
         settings.setTitle("Viks Snake Game");
         settings.setTicksPerSecond(10);
     }
@@ -73,7 +81,11 @@ public class SnakeGameApp extends GameApplication {
         scoreValue.textProperty().bind(getGameState().intProperty("score").asString());
         livesValue.textProperty().bind(getGameState().intProperty("lives").asString());
 
-        getGameScene().addUINodes(scoreLabel, scoreValue, livesLabel, livesValue);
+        var dpad = getInput().createVirtualDpadView();
+        dpad.setTranslateX(25);
+        dpad.setTranslateY(getAppHeight() - 280);
+
+        getGameScene().addUINodes(scoreLabel, scoreValue, livesLabel, livesValue, dpad);
     }
 
     /**
@@ -87,8 +99,15 @@ public class SnakeGameApp extends GameApplication {
                 SnakeHeadComponent::right));
         onKeyDown(KeyCode.UP, () -> this.player.getComponentOptional(SnakeHeadComponent.class).ifPresent(
                 SnakeHeadComponent::up));
-        onKeyDown(KeyCode.DOWN, () -> this.player.getComponentOptional(SnakeHeadComponent.class).ifPresent(
-                SnakeHeadComponent::down));
+
+        // TODO: do the remaining 3 buttons
+        getInput().addAction(new UserAction("Down") {
+            @Override
+            protected void onActionBegin() {
+                player.getComponentOptional(SnakeHeadComponent.class).ifPresent(
+                        SnakeHeadComponent::down);
+            }
+        }, KeyCode.DOWN, VirtualButton.DOWN);
 
         onKeyDown(KeyCode.F, () -> {
             player.getComponent(SnakeHeadComponent.class).grow();
@@ -108,5 +127,44 @@ public class SnakeGameApp extends GameApplication {
 
         // Add the player
         this.player = spawn("snakeHead", 0, 0);
+
+        spawnFood();
+    }
+
+    @Override
+    protected void onUpdate(double tpf) {
+        var food = getGameWorld().getSingleton(FOOD);
+
+        if (player.getX() == food.getX() && player.getY() == food.getY()) {
+            food.removeFromWorld();
+            player.getComponent(SnakeHeadComponent.class).grow();
+
+            spawnFood();
+        }
+    }
+
+    public void spawnFood() {
+        var posX = 0;
+        var posY = 0;
+
+        var isBad = true;
+
+        while (isBad) {
+            posX = FXGLMath.random(0, GRID_WIDTH - 1) * CELL_SIZE;
+            posY = FXGLMath.random(0, GRID_HEIGHT - 1) * CELL_SIZE;
+
+            int pX = posX;
+            int pY = posY;
+
+            isBad = byType(SNAKE_HEAD, SNAKE_BODY)
+                    .stream()
+                    .anyMatch(e -> (int) e.getX() == pX && (int) e.getY() == pY);
+        }
+
+        spawn("food", posX, posY);
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }

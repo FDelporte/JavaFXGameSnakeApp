@@ -187,16 +187,16 @@
                         <list>storage</list>
                         <list>vibration</list>
                     </attachList>
-<!--                    <releaseConfiguration>-->
-<!--                        &lt;!&ndash; for iOS &ndash;&gt;-->
-<!--                        <bundleVersion>${env.GITHUB_RUN_NUMBER}</bundleVersion>-->
-<!--                        &lt;!&ndash; for Android &ndash;&gt;-->
-<!--                        <versionCode>${env.GITHUB_RUN_NUMBER}</versionCode>-->
-<!--                        <providedKeyStorePath>${env.ANDROID_KEYSTOREPATH}</providedKeyStorePath>-->
-<!--                        <providedKeyStorePassword>${env.ANDROID_KEYSTORE_PASSWORD}</providedKeyStorePassword>-->
-<!--                        <providedKeyAlias>${env.ANDROID_KEYALIAS}</providedKeyAlias>-->
-<!--                        <providedKeyAliasPassword>${env.ANDROID_KEYALIAS_PASSWORD}</providedKeyAliasPassword>-->
-<!--                    </releaseConfiguration>-->
+                    <releaseConfiguration>
+                        <!-- for iOS -->
+                        <bundleVersion>${env.GITHUB_RUN_NUMBER}</bundleVersion>
+                        <!-- for Android -->
+                        <versionCode>${env.GITHUB_RUN_NUMBER}</versionCode>
+                        <providedKeyStorePath>${env.ANDROID_KEYSTOREPATH}</providedKeyStorePath>
+                        <providedKeyStorePassword>${env.ANDROID_KEYSTORE_PASSWORD}</providedKeyStorePassword>
+                        <providedKeyAlias>${env.ANDROID_KEYALIAS}</providedKeyAlias>
+                        <providedKeyAliasPassword>${env.ANDROID_KEYALIAS_PASSWORD}</providedKeyAliasPassword>
+                    </releaseConfiguration>
                 </configuration>
             </plugin>
         </plugins>

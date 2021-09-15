@@ -4,12 +4,10 @@ import be.webtechie.emojisnakeapp.component.SnakeHeadComponent;
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.core.math.FXGLMath;
-import com.almasb.fxgl.core.math.Vec2;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.EntityFactory;
 import com.almasb.fxgl.input.UserAction;
 import com.almasb.fxgl.input.virtual.VirtualButton;
-import com.almasb.fxgl.ui.Position;
 import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
@@ -20,7 +18,6 @@ import java.util.Map;
 import static be.webtechie.emojisnakeapp.game.SnakeGameFactory.EntityType.*;
 import static com.almasb.fxgl.dsl.FXGL.*;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameScene;
-import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameState;
 
 public class SnakeGameApp extends GameApplication {
 
@@ -81,8 +78,8 @@ public class SnakeGameApp extends GameApplication {
         livesValue.setTranslateX(getAppWidth() - 30);
         livesValue.setTranslateY(20);
 
-        scoreValue.textProperty().bind(getGameState().intProperty("score").asString());
-        livesValue.textProperty().bind(getGameState().intProperty("lives").asString());
+        scoreValue.textProperty().bind(getWorldProperties().intProperty("score").asString());
+        livesValue.textProperty().bind(getWorldProperties().intProperty("lives").asString());
 
         var dpad = getInput().createVirtualDpadView();
         dpad.setTranslateX(25);

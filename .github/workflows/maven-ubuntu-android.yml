@@ -38,7 +38,7 @@ jobs:
       with:
         gluon-license: ${{ secrets.GLUON_LICENSE }}
     - name: Gluon Build
-      run: mvn -DconsoleProcessLog=true -Pandroid client:build client:package
+      run: mvn -DconsoleProcessLog=true -Pandroid gluonfx:build gluonfx:package
       env:
         GRAALVM_HOME: ${{ env.JAVA_HOME }}
         ANDROID_KEYSTOREPATH: ${{ steps.android_keystore_file.outputs.filePath }}
@@ -46,9 +46,9 @@ jobs:
         ANDROID_KEYALIAS: ${{ secrets.ANDROID_KEYALIAS }}
         ANDROID_KEYALIAS_PASSWORD: ${{ secrets.ANDROID_KEYALIAS_PASSWORD }}
     - name: Show created files
-      run: ls -l target/client/aarch64-android/gvm/
-    - name: Copy native clients to staging
-      run: cp -r target/client/aarch64-android/gvm/EmojiSnakeGameApp.apk staging
+      run: ls -l target/gluonfx/aarch64-android/gvm/
+    - name: Copy native app to staging
+      run: cp -r target/gluonfx/aarch64-android/gvm/EmojiSnakeGameApp.apk staging
     - name: Upload
       uses: actions/upload-artifact@v2
       with:
@@ -59,5 +59,5 @@ jobs:
       with:
         serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
         packageName: be.webtechie.emojisnakegameapp
-        releaseFiles: target/client/aarch64-android/gvm/EmojiSnakeGameApp.apk
+        releaseFiles: target/gluonfx/aarch64-android/gvm/EmojiSnakeGameApp.apk
         track: beta

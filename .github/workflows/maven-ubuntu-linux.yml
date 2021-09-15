@@ -31,13 +31,13 @@ jobs:
       with:
         gluon-license: ${{ secrets.GLUON_LICENSE }}
     - name: Gluon Build
-      run: mvn -DconsoleProcessLog=true -Pdesktop client:build client:package
+      run: mvn -DconsoleProcessLog=true -Pdesktop gluonfx:build gluonfx:package
       env:
         GRAALVM_HOME: ${{ env.JAVA_HOME }}
     - name: Show created files
-      run: ls -l target/client/x86_64-linux/
-    - name: Copy native client to staging
-      run: cp -r target/client/x86_64-linux/emoji* staging
+      run: ls -l target/gluonfx/x86_64-linux/
+    - name: Copy native app to staging
+      run: cp -r target/gluonfx/x86_64-linux/emoji* staging
     - name: Upload
       uses: actions/upload-artifact@v2
       with:

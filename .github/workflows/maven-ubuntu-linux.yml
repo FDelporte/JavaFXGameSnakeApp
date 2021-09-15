@@ -37,7 +37,7 @@ jobs:
     - name: Show created files
       run: ls -l target/gluonfx/x86_64-linux/
     - name: Copy native app to staging
-      run: cp -r target/gluonfx/x86_64-linux/emoji* staging
+      run: cp -r target/gluonfx/x86_64-linux/EmojiSnakeGameApp staging
     - name: Upload
       uses: actions/upload-artifact@v2
       with:

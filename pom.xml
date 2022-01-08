@@ -17,12 +17,13 @@
         <maven.compiler.release>11</maven.compiler.release>
 
         <!-- Dependency versions -->
-        <fxgl.version>11.17</fxgl.version>
-        <attach.version>4.0.9</attach.version>
+        <fxgl.version>17</fxgl.version>
+        <attach.version>4.0.13</attach.version>
 
         <!-- Plugin versions -->
-        <javafx.plugin.version>0.0.7</javafx.plugin.version>
-        <gluonfx.plugin.version>1.0.5</gluonfx.plugin.version>
+        <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
+        <javafx.plugin.version>0.0.8</javafx.plugin.version>
+        <gluonfx.plugin.version>1.0.10</gluonfx.plugin.version>
 
         <main.class>be.webtechie.emojisnakeapp.game.SnakeGameApp</main.class>
     </properties>
@@ -40,7 +41,6 @@
     </repositories>
 
     <dependencies>
-
         <dependency>
             <groupId>com.github.almasb</groupId>
             <artifactId>fxgl</artifactId>
@@ -99,8 +99,9 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>${maven.compiler.plugin.version}</version>
             </plugin>
+
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
@@ -109,6 +110,7 @@
                     <mainClass>${main.class}</mainClass>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>com.gluonhq</groupId>
                 <artifactId>gluonfx-maven-plugin</artifactId>

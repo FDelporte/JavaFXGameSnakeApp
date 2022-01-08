@@ -18,8 +18,8 @@ jobs:
       - name: Setup GraalVM environment
         uses: DeLaGuardo/setup-graalvm@master
         with:
-          graalvm: '21.2.0'
-          java: 'java11'
+          graalvm: '21.3.0'
+          java: 'java17'
       - name: Make staging directory
         run: mkdir staging
       - name: Gluon License

@@ -14,7 +14,7 @@ public class SnakeHeadComponent extends Component {
     private Point2D direction = new Point2D(1, 0);
 
     // head - body - ...
-    private List<Entity> bodyParts = new ArrayList<>();
+    private final List<Entity> bodyParts = new ArrayList<>();
 
     @Override
     public void onAdded() {
@@ -28,8 +28,6 @@ public class SnakeHeadComponent extends Component {
         entity.setProperty("prevPos", entity.getPosition());
         entity.translate(direction.multiply(32));
 
-        checkForBounds();
-
         for (int i = 1; i < bodyParts.size(); i++) {
             var prevPart = bodyParts.get(i - 1);
             var part = bodyParts.get(i);
@@ -39,20 +37,6 @@ public class SnakeHeadComponent extends Component {
             part.setProperty("prevPos", part.getPosition());
             part.setPosition(prevPos);
         }
-    }
-
-    private void checkForBounds() {
-        if (entity.getX() < 0)
-            die();
-
-        if (entity.getX() >= getAppWidth())
-            die();
-
-        if (entity.getY() < 0)
-            die();
-
-        if (entity.getY() >= getAppHeight())
-            die();
     }
 
     public void die() {

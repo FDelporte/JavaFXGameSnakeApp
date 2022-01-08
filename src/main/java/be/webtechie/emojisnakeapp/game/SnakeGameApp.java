@@ -9,6 +9,7 @@ import com.almasb.fxgl.entity.EntityFactory;
 import com.almasb.fxgl.input.UserAction;
 import com.almasb.fxgl.input.virtual.VirtualButton;
 import javafx.geometry.Point2D;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -22,18 +23,20 @@ import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameScene;
 public class SnakeGameApp extends GameApplication {
 
     private static final int CELL_SIZE = 32;
-    private static final int GRID_WIDTH = 30;
-    private static final int GRID_HEIGHT = 17;
-
     /**
      * Reference to the factory which will defines how all the types must be created.
      */
     private final SnakeGameFactory snakeGameFactory = new SnakeGameFactory();
-
+    private int numberOfColumns;
+    private int numberOfRows;
     /**
      * Player object we are going to use to provide to the factory so it can start a bullet from the player center.
      */
     private Entity player;
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     /**
      * General game settings. For now only the title is set, but a longer list of options is available.
@@ -42,8 +45,8 @@ public class SnakeGameApp extends GameApplication {
      */
     @Override
     protected void initSettings(GameSettings settings) {
-        settings.setWidth(CELL_SIZE * GRID_WIDTH);
-        settings.setHeight(CELL_SIZE * GRID_HEIGHT);
+        settings.setFullScreenAllowed(true);
+        settings.setFullScreenFromStart(true);
         settings.setTitle("Emoji Snake Game");
         settings.setTicksPerSecond(10);
     }
@@ -72,10 +75,10 @@ public class SnakeGameApp extends GameApplication {
         scoreValue.setTranslateX(90);
         scoreValue.setTranslateY(20);
 
-        livesLabel.setTranslateX(getAppWidth() - 100);
+        livesLabel.setTranslateX(getAppWidth() - 100D);
         livesLabel.setTranslateY(20);
 
-        livesValue.setTranslateX(getAppWidth() - 30);
+        livesValue.setTranslateX(getAppWidth() - 30D);
         livesValue.setTranslateY(20);
 
         scoreValue.textProperty().bind(getWorldProperties().intProperty("score").asString());
@@ -83,10 +86,11 @@ public class SnakeGameApp extends GameApplication {
 
         var dpad = getInput().createVirtualDpadView();
         dpad.setTranslateX(25);
-        dpad.setTranslateY(getAppHeight() - 280);
+        dpad.setTranslateY(getAppHeight() - 280D);
+        dpad.setBlendMode(BlendMode.MULTIPLY);
         // Only for desktop testing
-        //dpad.setScaleX(0.5);
-        //dpad.setScaleY(0.5);
+        dpad.setScaleX(0.5);
+        dpad.setScaleY(0.5);
 
         getGameScene().addUINodes(scoreLabel, scoreValue, livesLabel, livesValue, dpad);
     }
@@ -129,13 +133,9 @@ public class SnakeGameApp extends GameApplication {
             }
         }, KeyCode.RIGHT, VirtualButton.RIGHT);
 
-        onKeyDown(KeyCode.F, () -> {
-            player.getComponent(SnakeHeadComponent.class).grow();
-        });
+        onKeyDown(KeyCode.F, () -> player.getComponent(SnakeHeadComponent.class).grow());
 
-        onKeyDown(KeyCode.G, () -> {
-            player.getComponent(SnakeHeadComponent.class).log();
-        });
+        onKeyDown(KeyCode.G, () -> player.getComponent(SnakeHeadComponent.class).log());
     }
 
     /**
@@ -143,6 +143,9 @@ public class SnakeGameApp extends GameApplication {
      */
     @Override
     protected void initGame() {
+        numberOfColumns = Math.round(getGameScene().getAppWidth() / CELL_SIZE);
+        numberOfRows = Math.round(getGameScene().getAppHeight() / CELL_SIZE);
+
         getGameWorld().addEntityFactory(this.snakeGameFactory);
 
         // Add the player
@@ -154,29 +157,46 @@ public class SnakeGameApp extends GameApplication {
 
     @Override
     protected void onUpdate(double tpf) {
-        var food = getGameWorld().getSingleton(FOOD);
-        var trap = getGameWorld().getSingleton(TRAP);
-
-        if (player.getX() == food.getX() && player.getY() == food.getY()) {
-            food.removeFromWorld();
-            trap.removeFromWorld();
-            player.getComponent(SnakeHeadComponent.class).grow();
-            spawnFood();
-            spawnTrap();
+        // Check if food is touched
+        for (Entity food : getGameWorld().getEntitiesByType(FOOD)) {
+            if (player.getX() == food.getX() && player.getY() == food.getY()) {
+                food.removeFromWorld();
+                player.getComponent(SnakeHeadComponent.class).grow();
+                spawnFood();
+            }
         }
 
+        // Check if the trap is touched
+        var trap = getGameWorld().getSingleton(TRAP);
         if (player.getX() == trap.getX() && player.getY() == trap.getY()) {
-            food.removeFromWorld();
-            trap.removeFromWorld();
-            player.getComponent(SnakeHeadComponent.class).die();
-            spawnFood();
-            spawnTrap();
+            restart();
+        }
+
+        // Check if the snake touches the borders
+        if (player.getX() < 0
+                || player.getX() >= getAppWidth()
+                || player.getY() < 0
+                || player.getY() >= getAppHeight()) {
+            restart();
         }
     }
 
+    private void restart() {
+        getGameWorld().getEntitiesByType(FOOD).forEach(Entity::removeFromWorld);
+        getGameWorld().getSingleton(TRAP).removeFromWorld();
+        player.getComponent(SnakeHeadComponent.class).die();
+        spawnFood();
+        spawnTrap();
+    }
+
     public void spawnFood() {
-        var pos = getFreePosition();
-        spawn("food", pos.getX(), pos.getY());
+        var currentNumberOfFood = getGameWorld().getEntitiesByType(FOOD).size();
+        if (currentNumberOfFood < 5) {
+            for (int i = currentNumberOfFood; i < 5; i++) {
+                var pos = getFreePosition();
+                spawn("food", pos.getX(), pos.getY());
+            }
+        }
     }
 
     public void spawnTrap() {
@@ -186,7 +206,6 @@ public class SnakeGameApp extends GameApplication {
 
     /**
      * Find an X/Y position which is not use by any of the snake elements or food or trap
-     * @return
      */
     private Point2D getFreePosition() {
         var posX = 0;
@@ -195,8 +214,8 @@ public class SnakeGameApp extends GameApplication {
         var isBad = true;
 
         while (isBad) {
-            posX = FXGLMath.random(0, GRID_WIDTH - 1) * CELL_SIZE;
-            posY = FXGLMath.random(0, GRID_HEIGHT - 1) * CELL_SIZE;
+            posX = FXGLMath.random(1, numberOfColumns - 2) * CELL_SIZE;
+            posY = FXGLMath.random(1, numberOfRows - 2) * CELL_SIZE;
 
             int pX = posX;
             int pY = posY;
@@ -207,9 +226,5 @@ public class SnakeGameApp extends GameApplication {
         }
 
         return new Point2D(posX, posY);
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }

@@ -14,16 +14,16 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <maven.compiler.release>11</maven.compiler.release>
+        <maven.compiler.release>17</maven.compiler.release>
 
         <!-- Dependency versions -->
-        <fxgl.version>17</fxgl.version>
-        <attach.version>4.0.13</attach.version>
+        <fxgl.version>17.3</fxgl.version>
+        <attach.version>4.0.18</attach.version>
 
         <!-- Plugin versions -->
-        <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
+        <maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version>
         <javafx.plugin.version>0.0.8</javafx.plugin.version>
-        <gluonfx.plugin.version>1.0.10</gluonfx.plugin.version>
+        <gluonfx.plugin.version>1.0.19</gluonfx.plugin.version>
 
         <main.class>be.webtechie.emojisnakeapp.game.SnakeGameApp</main.class>
     </properties>
@@ -242,10 +242,11 @@
                 </dependency>
             </dependencies>
         </profile>
+
         <profile>
             <id>android</id>
             <properties>
-                <client.target>android</client.target>
+                <gluonfx.target>android</gluonfx.target>
             </properties>
         </profile>
     </profiles>

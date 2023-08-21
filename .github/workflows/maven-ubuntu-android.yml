@@ -45,6 +45,10 @@ jobs:
         with:
           gluon-license: ${{ secrets.GLUON_LICENSE }}
 
+      # Avoid double Android configs
+      - name: Android config cleanup
+        run: unset ANDROID_SDK_ROOT
+
       - name: Gluon Build
         run: mvn -DconsoleProcessLog=true -Pandroid gluonfx:build gluonfx:package
         env:

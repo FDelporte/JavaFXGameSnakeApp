@@ -55,7 +55,7 @@ jobs:
           ANDROID_KEYALIAS_PASSWORD: ${{ secrets.ANDROID_KEYALIAS_PASSWORD }}
 
       - name: Show created files
-        run: ls -l target/gluonfx/aarch64-android/gvm/
+        run: ls -lR target/gluonfx/*
 
       - name: Copy native app to staging
         run: cp -r target/gluonfx/aarch64-android/gvm/EmojiSnakeGameApp.apk staging

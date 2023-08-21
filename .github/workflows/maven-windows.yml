@@ -10,18 +10,28 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
+      # Checkout your code
       - uses: actions/checkout@v2
+
+      # Setup the Windows build environment
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.0.2
+
       - name: Visual Studio shell
         uses: egor-tensin/vs-shell@v1
-      - name: Setup GraalVM environment
-        uses: DeLaGuardo/setup-graalvm@master
-        with:
-          graalvm: '21.3.0'
-          java: 'java17'
+
+      # Make sure the latest GraalVM is installed.
+      # after this step env.JAVA_HOME and env.GRAALVM_HOME will point to the GraalVM location
+      - name: Setup GraalVM built by Gluon
+        uses: gluonhq/setup-graalvm@master
+        # set GITHUB_TOKEN to avoid exceeding GitHub's API rate limit
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Create a staging directory where the binary will be copied into
       - name: Make staging directory
         run: mkdir staging
+
       - name: Gluon License
         uses: gluonhq/gluon-build-license@v1
         with:

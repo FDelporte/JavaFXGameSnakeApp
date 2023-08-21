@@ -246,7 +246,7 @@
         <profile>
             <id>android</id>
             <properties>
-                <gluonfx.target>android</gluonfx.target>
+                <client.target>android</client.target>
             </properties>
         </profile>
     </profiles>

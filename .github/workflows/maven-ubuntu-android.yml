@@ -37,7 +37,7 @@ jobs:
         uses: timheuer/base64-to-file@v1
         with:
           fileName: 'my.keystore'
-          encodedString: ${{ secrets.GLUON_ANDROID_KEYSTORE_BASE64 }}
+          encodedString: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
 
       # Install the Gluon License (optional)
       # Using this step requires you to set a GLUON_LICENSE secret in the secret configuration of your repo. Have a look at https://gluonhq.com/products/mobile/buy for more information about obtaining a license.

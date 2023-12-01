@@ -76,14 +76,14 @@ jobs:
         run: cp -r target/gluonfx/aarch64-android/gvm/EmojiSnakeGameApp.* staging
 
       # Upload the target directory as a build artifact
-      - name: Upload
+      - name: Make artifact from target directory
         uses: actions/upload-artifact@v2
         with:
           name: Target
           path: target/gluonfx/
 
       # Upload the staging directory as a build artifact
-      - name: Upload
+      - name: Make artifact from staging directory
         uses: actions/upload-artifact@v2
         with:
           name: Package

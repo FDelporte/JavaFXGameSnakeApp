@@ -75,7 +75,14 @@ jobs:
       - name: Copy native app to staging
         run: cp -r target/gluonfx/aarch64-android/gvm/EmojiSnakeGameApp.* staging
 
-      # Upload the staging directoy as a build artifact
+      # Upload the target directory as a build artifact
+      - name: Upload
+        uses: actions/upload-artifact@v2
+        with:
+          name: Target
+          path: target/gluonfx/
+
+      # Upload the staging directory as a build artifact
       - name: Upload
         uses: actions/upload-artifact@v2
         with:

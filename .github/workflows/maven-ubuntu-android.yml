@@ -3,6 +3,9 @@
 # https://developer.android.com/studio/publish/app-signing
 # encode keystore file: openssl base64 -in <infile> -out <outfile>
 
+# After a successful run, upload is visible on
+# https://play.google.com/console/u/1/developers/6749154341000694829/app/4974329342368881247/bundle-explorer-selector
+
 name: Linux Android
 
 on:

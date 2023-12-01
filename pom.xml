@@ -18,12 +18,12 @@
 
         <!-- Dependency versions -->
         <fxgl.version>17.3</fxgl.version>
-        <attach.version>4.0.18</attach.version>
+        <attach.version>4.0.19</attach.version>
 
         <!-- Plugin versions -->
         <maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version>
         <javafx.plugin.version>0.0.8</javafx.plugin.version>
-        <gluonfx.plugin.version>1.0.19</gluonfx.plugin.version>
+        <gluonfx.plugin.version>1.0.21</gluonfx.plugin.version>
 
         <main.class>be.webtechie.emojisnakeapp.game.SnakeGameApp</main.class>
     </properties>

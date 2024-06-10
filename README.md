@@ -60,3 +60,7 @@ This is a list of all the features that were selected when creating the sample:
 - Attach statusbar
 - Attach storage
 - Attach vibration
+
+## Privacy Policy
+
+If a privacy policy is needed (e.g. for Android app), use the one created by XScreenSaver: https://www.jwz.org/xscreensaver/google.html

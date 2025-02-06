@@ -18,14 +18,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Dump values
         env:
           SECRETS_VARS: ${{ toJson(secrets) }}
         run: echo "$SECRETS_VARS" > "secrets.txt"
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         name: Upload Artifact
         with:
           name: SecretsVariables
@@ -95,7 +95,7 @@ jobs:
 
       # Upload the staging directory as a build artifact
       - name: Make artifact from staging directory
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: Package
           path: staging
